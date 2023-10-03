@@ -15,3 +15,4 @@ if __name__ == "__main__":
     # manager.filter_by_attributes(rating=3.9)
     # manager.session.close()
 
+
