@@ -16,11 +16,9 @@ class ProjectManagement:
 
     def get_value_by_id(self, id):
         value = self.session.query(Projektas).get(id)
-        print(value)
 
     def filter_by_name(self, name):
         value = self.session.query(Projektas).filter_by(name=name).all()
-        print(value)
 
     def filter_by_attributes(self, **kwargs):
         query = self.session.query(Projektas)
