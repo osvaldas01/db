@@ -1,4 +1,3 @@
-# db_management.py
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sql_alchemy.models import Projektas
