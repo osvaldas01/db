@@ -24,7 +24,7 @@ class Demo1(ProjectManagement):
             ("Change words", self.change_words),
             ("Add word", self.add_word),
             ("Delete words", self.delete_words),
-            ("Get number of symbols", self.get_number_symbols)
+            ("Get number of symbols", self.get_most_popular_word)
         ]
 
         for text, command in button_info:
