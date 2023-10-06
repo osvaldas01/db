@@ -191,12 +191,18 @@ class Demo1(ProjectManagement):
                 file.write(updated_text)
             messagebox.showinfo("Info", "Word deleted successfully")
 
-    def get_number_symbols(self):
+    def get_most_popular_word(self):
+        word_count = {}
         variable = simpledialog.askstring("Input variable", "Enter a variable name", parent=self.master)
-        symbols_to_count = simpledialog.askstring("Input symbols", "Enter a symbol to count", parent=self.master)
         with open(f"{variable}.txt", "r") as file:
             text = file.read()
-            symbol_count = text.count(symbols_to_count)
-
-        messagebox.showinfo("Info", f"Number of symbols: {symbol_count}")
+            for word in text.split():
+                if word in word_count:
+                    word_count[word] += 1
+                else:
+                    word_count[word] = 1
+            most_popular_word = max(word_count, key=word_count.get)
+            label = Label(self.master,
+                          text=f"Most popular word is ( {most_popular_word} ), it appears {word_count[most_popular_word]} times")
+            label.pack()
 
