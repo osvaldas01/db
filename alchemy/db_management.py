@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from alchemy.models import Projektas
-from constants import print_menu
+from constants_file.constants import print_menu
 
 class ProjectManagement:
     def __init__(self):

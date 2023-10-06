@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import Label, Entry, Button, Toplevel, simpledialog, messagebox
 from alchemy.db_management import ProjectManagement
 from alchemy.models import Projektas
-from naujastestas import THISTEXT
+from constants_file.naujastestas import THISTEXT
 
 game = ProjectManagement()
 
