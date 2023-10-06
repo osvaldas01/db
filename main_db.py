@@ -1,6 +1,6 @@
-from sql_alchemy.db_management import ProjectManagement
-from sql_alchemy.db_management import UserInterface
-from sql_alchemy.models import Projektas
+from alchemy.db_management import ProjectManagement
+from alchemy.db_management import UserInterface
+from alchemy.models import Projektas
 
 if __name__ == "__main__":
 

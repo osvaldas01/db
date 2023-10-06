@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sql_alchemy.models import Projektas
+from alchemy.models import Projektas
 from constants import print_menu
 
 class ProjectManagement:
@@ -26,9 +26,9 @@ class ProjectManagement:
         results = query.all()
         print(results)
 
-    def update_value_by_id(self, id, new_name):
+    def update_value_by_id(self, id, attribute, new_value):
         value = self.session.query(Projektas).get(id)
-        value.name = new_name
+        setattr(value, attribute, new_value)
         self.session.commit()
 
     def delete_value(self, id):
