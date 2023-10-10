@@ -40,6 +40,6 @@ class RequestProgram:
         return response.text
 
     def get_links(self):
-        domain = re.compile(r'(\w+\.\w+).?\w*')
+        domain = re.compile(r'\w+\.\w+|\.\w+')
         links = domain.findall(self.get_html())
         print(links)
