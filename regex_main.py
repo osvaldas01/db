@@ -1,5 +1,4 @@
-from regex_uzduotys import *
-import re
+from regex_assignments.regex_assignments import *
 
 if __name__ == '__main__':
     program = RegProgram("12.12.2020")
