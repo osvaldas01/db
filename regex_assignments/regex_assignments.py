@@ -42,4 +42,4 @@ class RequestProgram:
     def get_links(self):
         domain = re.compile(r'\w+\.\w+|\.\w+')
         links = domain.findall(self.get_html())
-        print(links)
+        return links
