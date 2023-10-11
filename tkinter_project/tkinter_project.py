@@ -3,7 +3,9 @@ from tkinter import Label, Entry, Button, Toplevel, simpledialog, messagebox
 from alchemy.db_management import ProjectManagement
 from alchemy.models import Projektas
 from constants_file.naujastestas import THISTEXT
+from tkinter_logging_main import Logger
 
+logger = Logger()
 game = ProjectManagement()
 
 
@@ -34,6 +36,7 @@ class Demo1(ProjectManagement):
         self.frame.pack()
 
     def get_value(self):
+        logger.logger.debug("Get value button pressed")
         get_value_window = Toplevel(self.master)
         get_value_window.title("Get Value")
 
@@ -44,6 +47,7 @@ class Demo1(ProjectManagement):
         get_value_window.mainloop()
 
     def update_value(self):
+        logger.logger.debug("Update value button pressed")
         update_window = Toplevel(self.master)
         update_window.title("Update Value")
 
@@ -53,6 +57,8 @@ class Demo1(ProjectManagement):
             new_value = get_value_entry.get()
             game.update_value_by_id(id_value, attribute_value, new_value)
             update_window.destroy()
+
+            logger.logger.info(f"Project with id {id_value} and attribute {attribute_value} updated to {new_value}")
 
         id_label = Label(update_window, text="ID:")
         id_label.pack()
@@ -75,6 +81,7 @@ class Demo1(ProjectManagement):
         update_window.mainloop()
 
     def create_value(self):
+        logger.logger.debug("Create value button pressed")
         create_window = Toplevel(self.master)
         create_window.title("Create Project")
 
@@ -97,6 +104,9 @@ class Demo1(ProjectManagement):
         submit_button = tk.Button(create_window, text="Submit",
                                   command=lambda: self.add_project(create_window, entries))
         submit_button.pack()
+        logger.logger.info(f"Project with Name: {entries['Name:']}, Price: {entries['Price:']}, "
+                           f"Author: {entries['Author:']}, Amount of copy: {entries['Amount of copy:']}, "
+                           f"Rating: {entries['Rating:']} created")
 
     def add_project(self, create_window, entries):
         project_info = {}
@@ -113,7 +123,14 @@ class Demo1(ProjectManagement):
         game.add_value(project)
         create_window.destroy()
 
+        logger.logger.info(f"Project added:{project_info['Name:']}, "
+                           f"Price:{project_info['Price:']}, "
+                           f"Author:{project_info['Author:']}, "
+                           f"Amount of copy:{project_info['Amount of copy:']}, "
+                           f"Rating:{project_info['Rating:']}")
+
     def delete_value(self):
+        logger.logger.debug("Delete value button pressed")
         delete_window = Toplevel(self.master)
         delete_window.title("Delete Value")
 
@@ -130,16 +147,21 @@ class Demo1(ProjectManagement):
         submit_button = Button(delete_window, text="Delete", command=delete_by_id)
         submit_button.pack()
 
+        logger.logger.info(f"Project deleted:{id_entry.get()}")
+
         delete_window.mainloop()
 
     def save_to_file(self):
+        logger.logger.debug("Save to file button pressed")
         variable = simpledialog.askstring("Input variable", "Enter a variable name", parent=self.master)
         if variable:
             with open(variable + ".txt", "w") as file:
                 file.write(self.text)
         messagebox.showinfo("Info", "File saved successfully")
+        logger.logger.info(f"File with name: {variable} saved successfully")
 
     def get_symbols(self):
+        logger.logger.debug("Get symbols button pressed")
         variable = simpledialog.askstring("Input variable", "Enter a variable name", parent=self.master)
         symbols_to_find = simpledialog.askstring("Input letters",
                                                  "Enter a letter or letters to find", parent=self.master)
@@ -155,7 +177,10 @@ class Demo1(ProjectManagement):
             else:
                 messagebox.showinfo("Info", "No words found")
 
+        logger.logger.info(f"In a file {variable} found words with {symbols_to_find} symbols, {result}")
+
     def change_words(self):
+        logger.logger.debug("Change words button pressed")
         variable = simpledialog.askstring("Input variable", "Enter a variable name", parent=self.master)
         word_to_change = simpledialog.askstring("Input word", "Enter a word to change", parent=self.master)
         new_word = simpledialog.askstring("Input new word", "Enter a new word", parent=self.master)
@@ -168,17 +193,21 @@ class Demo1(ProjectManagement):
             with open(f"{variable}.txt", "w") as file:
                 file.write(updated_text)
             messagebox.showinfo("Info", "Words changed successfully")
+            logger.logger.info(f"In a file {variable} changed words {word_to_change} to {new_word}")
 
     def add_word(self):
+        logger.logger.debug("Add word button pressed")
         variable = simpledialog.askstring("Input variable", "Enter a variable name", parent=self.master)
         word_to_add = simpledialog.askstring("Input word", "Enter a word to add", parent=self.master)
 
         with open(f"{variable}.txt", "a") as file:
             file.write(f" {word_to_add}")
         messagebox.showinfo("Info", "Word added successfully")
+        logger.logger.info(f"In a file {variable} added word {word_to_add}")
 
 
     def delete_words(self):
+        logger.logger.debug("Delete words button pressed")
         variable = simpledialog.askstring("Input variable", "Enter a variable name", parent=self.master)
         word_to_delete = simpledialog.askstring("Input word", "Enter a word to delete", parent=self.master)
 
@@ -190,8 +219,10 @@ class Demo1(ProjectManagement):
             with open(f"{variable}.txt", "w") as file:
                 file.write(updated_text)
             messagebox.showinfo("Info", "Word deleted successfully")
+            logger.logger.info(f"In a file {variable} deleted word {word_to_delete}")
 
     def get_most_popular_word(self):
+        logger.logger.debug("Get most popular word button pressed")
         word_count = {}
         variable = simpledialog.askstring("Input variable", "Enter a variable name", parent=self.master)
         with open(f"{variable}.txt", "r") as file:
@@ -205,4 +236,5 @@ class Demo1(ProjectManagement):
             label = Label(self.master,
                           text=f"Most popular word is ( {most_popular_word} ), it appears {word_count[most_popular_word]} times")
             label.pack()
+            logger.logger.info(f"In a file {variable} found most popular word {most_popular_word}")
 
