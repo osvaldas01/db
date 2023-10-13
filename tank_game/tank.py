@@ -144,7 +144,6 @@ class Tank:
             self.board()
             print("Score:", self.score)
 
-
     def save_score(self):
         loger.logger.info(f"Player: {self.name} saved score")
         with open("scores.txt", "r") as file:
