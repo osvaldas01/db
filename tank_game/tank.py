@@ -1,7 +1,6 @@
 from constants_file.tank_constants import TANK_OPTIONS
 import tkinter_logging_main
 from collections import deque
-import sqlite3
 
 loger = tkinter_logging_main.Logger()
 
