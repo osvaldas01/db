@@ -1,6 +1,7 @@
 from constants_file.tank_constants import TANK_OPTIONS
 import tkinter_logging_main
 from collections import deque
+from random import randint
 
 loger = tkinter_logging_main.Logger()
 
@@ -10,7 +11,7 @@ class Tank:
         self.name = None
         self.x = 0
         self.y = 0
-        self.target = [5, 5]
+        self.target = randint(0, 9), randint(0, 9)
         self.shots = {"North": 0, "South": 0, "East": 0, "West": 0}
         self.directions = deque(["North", "East", "South", "West"])
         self.direction = self.directions[0]
@@ -86,19 +87,32 @@ class Tank:
         y_diff = abs(self.y - self.target[1])
         print(f"X diff: {x_diff}, Y diff: {y_diff}")
 
-        if x_diff > 3 or y_diff > 3:
+        if max(x_diff, y_diff) > 3:
             self.score -= 10
             print("You missed!")
             loger.logger.info(f"{self.name} missed!")
 
-        if (self.direction == "North" and self.y > self.target[1] and self.x == self.target[0]) or \
-                (self.direction == "South" and self.y <= self.target[1] and self.x == self.target[0]) or \
-                (self.direction == "East" and self.x < self.target[0] and self.y == self.target[1]) or \
-                (self.direction == "West" and self.x > self.target[0] and self.y == self.target[1]):
+        success = True
+
+        if self.direction == "North" and self.y > self.target[1] and self.x == self.target[0]:
+            pass
+        elif self.direction == "South" and self.y <= self.target[1] and self.x == self.target[0]:
+            pass
+        elif self.direction == "East" and self.x < self.target[0] and self.y == self.target[1]:
+            pass
+        elif self.direction == "West" and self.x > self.target[0] and self.y == self.target[1]:
+            pass
+        else:
+            success = False
+
+        if success:
+            #target updates in new spot
+            self.target = randint(0, 9), randint(0, 9)
             self.score += 50
             self.shots[self.direction] += 1
             print("You shot and hit the target!")
             loger.logger.info(f"{self.name} shot and hit the target!")
+
         else:
             self.score -= 10
             print("You missed!")
